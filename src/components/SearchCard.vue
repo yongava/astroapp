@@ -5,20 +5,20 @@
       <h1 class="page-headline">Select Your Birth Date</h1>
       <div class="select_container">
         <div class="custom-select" id="select-month" @click="toggleDropdown('month')" style="z-index: 5001;">
-          <input class="chosen-value" type="text" v-model="selectedMonth" placeholder="Select Month" readonly>
+          <input class="chosen-value" type="text" v-model="selectedMonth" placeholder="SELECT MONTH" readonly>
           <ul class="value-list" v-show="isMonthDropdownOpen">
             <li v-for="(month, index) in months" :key="index" @click="selectMonth(month)">{{ month }}</li>
           </ul>
         </div>
         <div class="custom-select" id="select-date" @click="toggleDropdown('date')" style="z-index: 5000;">
-          <input class="chosen-value" type="text" v-model="selectedDate" placeholder="Select Date" readonly>
+          <input class="chosen-value" type="text" v-model="selectedDate" placeholder="SELECT DATE" readonly>
           <ul class="value-list" v-show="isDateDropdownOpen">
             <li v-for="date in dates" :key="date" @click="selectDate(date)">{{ date }}</li>
           </ul>
         </div>
       </div>
       <div class="btn-container">
-        <button type="button" class="submit-btn" @click="submitDate">Submit</button>
+        <button type="button" class="submit-btn" @click="submitDate">SUBMIT</button>
       </div>
     </div>
   </div>
@@ -81,7 +81,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Titillium Web", "Helvetica Neue", "Helvetica", Arial, sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -106,14 +106,14 @@ body {
   height: 100%;
   background: url('background.jpg') no-repeat center center/cover;
   z-index: -1;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .page-container {
-  background-color: white;
+  //background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  //box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -121,8 +121,11 @@ body {
 }
 
 .page-headline {
-  font-size: 24px;
+  font-size: 45px;
   margin-bottom: 20px;
+  color: white;
+  font-weight: normal;
+
 }
 
 .select_container {
@@ -135,16 +138,27 @@ body {
 .custom-select {
   position: relative;
   display: inline-block;
-  width: 150px;
-  margin: 0 10px;
+  width: 255px;
+  height: 40px;
+  margin: 0 20px;
 }
 
 .custom-select input {
   width: 100%;
+  height: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 0px solid #ccc;
+  border-radius: 0px;
   cursor: pointer;
+  text-align: center;
+  font-color: #000000;
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+
+}
+.custom-select input:hover {
+  background-color: #f77970;
 }
 
 .value-list {
@@ -156,6 +170,11 @@ body {
   overflow-y: auto;
   background-color: white;
   z-index: 1000;
+  list-style-type: none; /* Added to remove black dots */
+  padding: 0; /* Added to remove default padding */
+  margin: 0; /* Added to remove default margin */
+  font-weight: bold;
+  color: black;
 }
 
 .value-list li {
@@ -173,12 +192,16 @@ body {
 
 .submit-btn {
   padding: 10px 20px;
-  background-color: #555;
+  width: 139px;
+  height: 50px;
+  background-color: #F44336;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 0px;
   cursor: pointer;
+  font-size: 20px;
 }
+
 
 .submit-btn:hover {
   background-color: #9f4c3c;
