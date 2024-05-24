@@ -206,4 +206,17 @@ body {
 .submit-btn:hover {
   background-color: #9f4c3c;
 }
+
+@media (max-width: 768px) {
+  .select_container {
+    flex-direction: column;
+  }
+
+  .custom-select {
+    margin: 20px 0; /* Adjust margin for vertical alignment */
+  }
+}
+
 </style>
+
+
