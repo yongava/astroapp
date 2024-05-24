@@ -60,21 +60,19 @@ export default {
     submitDate() {
       alert(`Selected Date: ${this.selectedMonth} ${this.selectedDate}`);
       // Add your submit logic here
-    }
-  },
-  mounted() {
-    document.addEventListener('click', this.handleClickOutside);
-  },
-  beforeDestroy() {
-    document.removeEventListener('click', this.handleClickOutside);
-  },
-  methods: {
+    },
     handleClickOutside(event) {
       if (!this.$el.contains(event.target)) {
         this.isMonthDropdownOpen = false;
         this.isDateDropdownOpen = false;
       }
     }
+  },
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
   }
 };
 </script>
