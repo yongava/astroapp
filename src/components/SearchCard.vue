@@ -1,25 +1,25 @@
 <template>
-  <div class="container">
-    <div class="logo-section">
-      <img
-        src="mascot.png"
-        alt="Discover yours in just a few seconds."
-        id="company-logo"
-        width="150"
-        height="150"
-      />
-    </div>
-    <div class="title-section">
-      <h2>Select Your Birth Date</h2>
-    </div>
-    <div class="input-section">
-      <select v-model="selectedMonth">
-        <option v-for="(month, index) in months" :key="index" :value="month">{{ month }}</option>
-      </select>
-      <select v-model="selectedDate">
-        <option v-for="date in dates" :key="date" :value="date">{{ date }}</option>
-      </select>
-      <button @click="submitDate">Submit</button>
+  <div>
+    <div class="bg-img"></div>
+    <div class="page-container">
+      <h1 class="page-headline">Select Your Birth Date</h1>
+      <div class="select_container">
+        <div class="custom-select" id="select-month" @click="toggleDropdown('month')" style="z-index: 5001;">
+          <input class="chosen-value" type="text" v-model="selectedMonth" placeholder="Select Month" readonly>
+          <ul class="value-list" v-show="isMonthDropdownOpen">
+            <li v-for="(month, index) in months" :key="index" @click="selectMonth(month)">{{ month }}</li>
+          </ul>
+        </div>
+        <div class="custom-select" id="select-date" @click="toggleDropdown('date')" style="z-index: 5000;">
+          <input class="chosen-value" type="text" v-model="selectedDate" placeholder="Select Date" readonly>
+          <ul class="value-list" v-show="isDateDropdownOpen">
+            <li v-for="date in dates" :key="date" @click="selectDate(date)">{{ date }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="btn-container">
+        <button type="button" class="submit-btn" @click="submitDate">Submit</button>
+      </div>
     </div>
   </div>
 </template>
@@ -28,8 +28,10 @@
 export default {
   data() {
     return {
-      selectedMonth: null,
-      selectedDate: null,
+      selectedMonth: '',
+      selectedDate: '',
+      isMonthDropdownOpen: false,
+      isDateDropdownOpen: false,
       months: [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -38,70 +40,133 @@ export default {
     };
   },
   methods: {
+    toggleDropdown(type) {
+      if (type === 'month') {
+        this.isMonthDropdownOpen = !this.isMonthDropdownOpen;
+        this.isDateDropdownOpen = false;
+      } else {
+        this.isDateDropdownOpen = !this.isDateDropdownOpen;
+        this.isMonthDropdownOpen = false;
+      }
+    },
+    selectMonth(month) {
+      this.selectedMonth = month;
+      this.isMonthDropdownOpen = false;
+    },
+    selectDate(date) {
+      this.selectedDate = date;
+      this.isDateDropdownOpen = false;
+    },
     submitDate() {
-      console.log(`Selected Date: ${this.selectedMonth} ${this.selectedDate}`);
+      alert(`Selected Date: ${this.selectedMonth} ${this.selectedDate}`);
       // Add your submit logic here
+    }
+  },
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
+  },
+  methods: {
+    handleClickOutside(event) {
+      if (!this.$el.contains(event.target)) {
+        this.isMonthDropdownOpen = false;
+        this.isDateDropdownOpen = false;
+      }
     }
   }
 };
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-}
-
-.logo-section {
+body {
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  margin-bottom: 1rem;
+  height: 100%;
+  background: url('background.jpg') no-repeat center center/cover;
+  z-index: -1;
+  opacity: 0.5;
 }
 
-#company-logo {
-  width: 150px;
-  height: auto;
-  border-radius: 100px;
-}
-
-.title-section {
-  margin-bottom: 1rem;
-}
-
-.title-section h2 {
-  font-size: 24px;
-  font-weight: bold;
+.page-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.input-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.page-headline {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.input-section select {
-  margin: 0.5rem 0;
-  padding: 0.5rem;
+.select_container {
+  margin-bottom: 20px;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 150px;
+  margin: 0 10px;
+}
+
+.custom-select input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 16px;
+  cursor: pointer;
 }
 
-.input-section button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #555555;
+.value-list {
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: white;
+  z-index: 1000;
+}
+
+.value-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.value-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.btn-container {
+  margin-top: 20px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #555;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.input-section button:hover {
+.submit-btn:hover {
   background-color: #9f4c3c;
 }
 </style>
