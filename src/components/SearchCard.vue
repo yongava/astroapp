@@ -4,7 +4,7 @@
       <img
         data-v-f149e288=""
         src="mascot.png"
-        alt="Discover related stock using your keywords in just a few seconds."
+        alt="Discover yours in just a few seconds."
         id="company-logo"
         width="150"
         height="150"
