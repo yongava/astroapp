@@ -207,14 +207,25 @@ body {
   background-color: #9f4c3c;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 500px) {
+  .page-headline {
+    font-size: 35px;
+
+  }
   .select_container {
     flex-direction: column;
   }
 
   .custom-select {
     margin: 20px 0; /* Adjust margin for vertical alignment */
+    width: calc(160% + 0px);
+
   }
+
+  .custom-select input {
+    width: 100%; /* Ensure input matches the custom-select width */
+  }
+
 }
 
 </style>
