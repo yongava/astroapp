@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="bg-img"></div>
     <div class="page-container">
       <h1 class="page-headline">Select Your Birth Date</h1>
@@ -79,13 +79,23 @@ export default {
 
 <style scoped>
 body {
+  margin: 0;
+  padding: 0;
   font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0;
+  width: 100%;
+  position: relative;
 }
 
 .bg-img {
@@ -105,6 +115,9 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .page-headline {
@@ -114,6 +127,9 @@ body {
 
 .select_container {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .custom-select {
